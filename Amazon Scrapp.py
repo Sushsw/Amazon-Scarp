@@ -77,7 +77,7 @@ num_pages_to_scrape = 20
 base_url = "https://www.amazon.in/s?k=bags&crid=2M096C61O4MLT&qid=1653308124&sprefix=ba%2Caps%2C283&ref=sr_pg_{}"
 
 # Create a new CSV file and write the header row
-with open("amazon_product_data.csv", "w", newline="", encoding="utf-8") as file:
+with open("amazon_product_Scrapp.csv", "w", newline="", encoding="utf-8") as file:
     csv_writer = csv.writer(file)
     csv_writer.writerow(["Product Name", "Product Price", "Rating", "Number of Reviews", "URL", "ASIN", "Product Description", "Manufacturer"])
 
@@ -88,8 +88,20 @@ with open("amazon_product_data.csv", "w", newline="", encoding="utf-8") as file:
         # Call the function to extract product data from the page
         product_data = extract_product_data(url)
         
-        # Write the product data to the CSV file
-        csv_writer.writerows(product_data)
+        # Write the product data to the CSV file row by row
+        for product in product_data:
+            csv_writer.writerow(product)
+
+            # Print the basic product information in the terminal
+            print("Product Name:", product[0])
+            print("Product Price:", product[1])
+            print("Rating:", product[2])
+            print("Number of Reviews:", product[3])
+            print("URL:", product[4])
+            print("ASIN:", product[5])
+            print("Product Description:", product[6])
+            print("Manufacturer:", product[7])
+            print("-----------------------------------")
 
         # Add a delay of 1 second between each request
         time.sleep(1)
